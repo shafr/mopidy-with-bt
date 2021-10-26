@@ -29,7 +29,7 @@ jobs:
         # if: "github.event.release.prerelease"
         run: |
           docker buildx build --no-cache --push \
-            --tag shafr/mopidy-with-bt:latest \
+            --tag saikek/mopidy-with-bt:latest \
             --platform linux/arm/v7 .
 
       # - name: Build Release image
