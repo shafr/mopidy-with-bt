@@ -3,7 +3,8 @@ FROM ubuntu:20.04
 # Dev deps
 RUN apt-get -qq  update
 RUN apt-get -qq -y install --no-install-recommends \ 
-    git autoconf libtool gcc binutils pkg-config
+    git autoconf libtool gcc binutils pkg-config \
+    automake
 
 # Bluetooth-alza dependency -> BlueZ install
 # ---------- BLUEZ
