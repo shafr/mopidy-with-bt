@@ -44,12 +44,13 @@ RUN git config --global http.sslverify false && \
     export GIT_SSL_NO_VERIFY=true && \
     git clone https://github.com/Arkq/bluez-alsa.git --branch "master" --depth=1
 
-RUN cd bluez-alsa
-RUN autoreconf --install
+RUN cd bluez-alsa && \
+    ls -la && \
+    autoreconf --install
 RUN mkdir build && cd build
 RUN ../configure --enable-aac \
                  --enable-ofono \
-                 --enable-debug \
+                 --enable-debug \ 
                  --enable-mp3lame \
                  --enable-aac \
                  --enable-rfcomm \
