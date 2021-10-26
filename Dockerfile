@@ -2,7 +2,8 @@ FROM ubuntu:20.04
 # as builder-bluealza
 # Dev deps
 RUN apt-get -qq  update
-RUN apt install --yes --quiet --no-install-recommends git autoconf libtool gcc binutils pkg-config
+RUN apt-get -qq -y install --no-install-recommends \ 
+    git autoconf libtool gcc binutils pkg-config
 
 # Bluetooth-alza dependency -> BlueZ install
 # ---------- BLUEZ
@@ -17,7 +18,7 @@ RUN apt install --yes --quiet --no-install-recommends git autoconf libtool gcc b
 #     libbsd-dev libncurses-dev
 
 
-RUN sudo apt install --yes --quiet --no-install-recommends \
+RUN apt-get -qq -y install --no-install-recommends \
           check \
           libasound2-dev \
           libbluetooth-dev \
