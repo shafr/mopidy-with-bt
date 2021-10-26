@@ -1,12 +1,12 @@
 FROM python:3.8-slim as builder-bluealza
 # Dev deps
-RUN apt-get update
-RUN apt -y install git autoconf libtool gcc binutils pkg-config
+RUN apt-get -qq  update
+RUN apt-get -qq  -y install git autoconf libtool gcc binutils pkg-config
 
 # Bluetooth-alza dependency -> BlueZ install
 # ---------- BLUEZ
 # build deps:
-RUN apt -y install \
+RUN apt-get -qq -y install \
     bluetooth bluez libasound2 libglib2.0-dev sbc-tools \
     libmp3lame-dev libmpg123-dev libfdk-aac-dev \
     libdbus-1-dev \
