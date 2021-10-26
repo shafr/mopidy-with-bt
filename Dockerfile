@@ -3,7 +3,7 @@ FROM ubuntu:20.04 as builder-bluealza
 RUN apt-get -qq  update
 RUN apt-get -qq -y install --no-install-recommends \ 
     git autoconf libtool gcc binutils pkg-config \
-    automake make build-essential
+    automake make build-essential 
 
 RUN apt-get -qq -y install --no-install-recommends \
           check \
@@ -42,7 +42,9 @@ RUN cd bluez-alsa && \
           make && make install
 
 COPY bluealsa.conf /etc/dbus-1/system.d/bluealsa.conf          
+RUN apt-get -y install bluetooth
 
+# docker run --privileged --net=host -v /run/dbus/system_bus_socket:/run/dbus/system_bus_socket -it
 
 # ./etc
 # ./etc/alsa
