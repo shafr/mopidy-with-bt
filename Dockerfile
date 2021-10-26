@@ -40,7 +40,10 @@ RUN apt-get -qq -y install --no-install-recommends \
 
 # ---------- BLUE-ALSA
 
-RUN git clone https://github.com/Arkq/bluez-alsa.git --branch "master" --depth=1 
+RUN git config --global http.sslverify false && \
+    export GIT_SSL_NO_VERIFY=true && \
+    git clone https://github.com/Arkq/bluez-alsa.git --branch "master" --depth=1
+
 RUN cd bluez-alsa
 RUN autoreconf --install
 RUN mkdir build && cd build
