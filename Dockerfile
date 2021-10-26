@@ -4,7 +4,7 @@ FROM ubuntu:20.04
 RUN apt-get -qq  update
 RUN apt-get -qq -y install --no-install-recommends \ 
     git autoconf libtool gcc binutils pkg-config \
-    automake
+    automake make build-essential
 
 # Bluetooth-alza dependency -> BlueZ install
 # ---------- BLUEZ
