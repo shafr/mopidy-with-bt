@@ -26,7 +26,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Pre-Release image
-        if: "github.event.release.prerelease"
+        # if: "github.event.release.prerelease"
         run: |
           docker buildx build --no-cache --push \
             --tag shafr/mopidy-with-bt:${{ github.event.release.tag_name }} \
