@@ -1,4 +1,5 @@
-FROM python:3.8-slim as builder-bluealza
+FROM ubuntu:20.04
+# as builder-bluealza
 # Dev deps
 RUN apt-get -qq  update
 RUN apt-get -qq  -y install git autoconf libtool gcc binutils pkg-config
