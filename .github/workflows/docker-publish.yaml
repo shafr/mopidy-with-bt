@@ -1,5 +1,7 @@
 name: Publish Docker image
 on:
+  # release:
+    # types: [published]
   push:
 
 jobs:
@@ -28,7 +30,7 @@ jobs:
         run: |
           docker buildx build --no-cache --push \
             --tag shafr/mopidy-with-bt:${{ github.event.release.tag_name }} \
-            --platform linux/arm/v7 .
+            --platform linux/arm/v6,linux/arm/v7 .
 
       # - name: Build Release image
       #   if: "!github.event.release.prerelease"
