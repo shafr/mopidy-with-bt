@@ -1,5 +1,6 @@
 FROM ubuntu as builder-bluealza
 # Dev deps
+RUN apt-get update
 RUN apt -y install git autoconf libtool gcc binutils pkg-config
 
 # Bluetooth-alza dependency -> BlueZ install
