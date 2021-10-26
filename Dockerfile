@@ -47,9 +47,9 @@ RUN git config --global http.sslverify false && \
 
 RUN cd bluez-alsa && \
     ls -la && \
-    autoreconf --install
-RUN mkdir build && cd build
-RUN ../configure --enable-aac \
+    autoreconf --install && \
+    mkdir build && cd build && \
+    ../configure --enable-aac \
                  --enable-ofono \
                  --enable-debug \ 
                  --enable-mp3lame \
