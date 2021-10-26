@@ -37,17 +37,31 @@ RUN cd bluez-alsa && \
                  --enable-aac \
                  --enable-rfcomm \
                  --enable-hcitop \
-                 --disable-dependency-tracking \
-                 --prefix=/home/bluez-alsa/build-portable && \
+                 && \
           \
           make && make install
+
+COPY bluealsa.conf /etc/dbus-1/system.d/bluealsa.conf          
+
+
+# ./etc
+# ./etc/alsa
+# ./etc/alsa/conf.d
+# ./etc/alsa/conf.d/20-bluealsa.conf
+# ./bin
+# ./bin/bluealsa-aplay
+# ./bin/bluealsa
+# ./bin/bluealsa-rfcomm
+# ./bin/hcitop
 
 
 #  ----------- END blue-alsa build
 
-FROM ubuntu:20.04
-COPY --from=builder-bluealza '/usr/lib/x86_64-linux-gnu/alsa-lib' '/usr/lib/x86_64-linux-gnu/alsa-lib'
-COPY --from=builder-bluealza '/home/bluez-alsa/build-portable/' '/'
+# FROM ubuntu:20.04
+# COPY --from=builder-bluealza '/usr/lib/x86_64-linux-gnu/alsa-lib' '/usr/lib/x86_64-linux-gnu/alsa-lib'
+# COPY --from=builder-bluealza '/home/bluez-alsa/build-portable/bin' '/bin/'
+# COPY --from=builder-bluealza '/home/bluez-alsa/build-portable/etc' '/etc/'
+
 
 # copy
 # /usr/lib/x86_64-linux-gnu/alsa-lib
