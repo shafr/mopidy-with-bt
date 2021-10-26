@@ -55,7 +55,9 @@ RUN cd bluez-alsa && \
                  --enable-mp3lame \
                  --enable-aac \
                  --enable-rfcomm \
-                 --enable-hcitop
+                 --enable-hcitop && \
+          \
+          make && make install
 
 
 
