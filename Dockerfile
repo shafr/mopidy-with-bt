@@ -1,23 +1,9 @@
-FROM ubuntu:20.04
-# as builder-bluealza
+FROM ubuntu:20.04 as builder-bluealza
 # Dev deps
 RUN apt-get -qq  update
 RUN apt-get -qq -y install --no-install-recommends \ 
     git autoconf libtool gcc binutils pkg-config \
     automake make build-essential
-
-# Bluetooth-alza dependency -> BlueZ install
-# ---------- BLUEZ
-# build deps:
-
-
-# RUN apt install --yes --quiet --no-install-recommends \
-#     bluetooth bluez libasound2 libglib2.0-dev sbc-tools \
-#     libmp3lame-dev libmpg123-dev libfdk-aac-dev \
-#     libdbus-1-dev \
-#     libreadline6-dev \
-#     libbsd-dev libncurses-dev
-
 
 RUN apt-get -qq -y install --no-install-recommends \
           check \
@@ -34,21 +20,16 @@ RUN apt-get -qq -y install --no-install-recommends \
           libsbc-dev \
           python-docutils
 
-# openaptx 
-# libopenaptx
-# libldac 
-# docutils
-
-# ---------- BLUE-ALSA
-
 RUN git config --global http.sslverify false && \
     export GIT_SSL_NO_VERIFY=true && \
     git clone https://github.com/Arkq/bluez-alsa.git --branch "master" --depth=1
 
 RUN cd bluez-alsa && \
-    ls -la && \
+    pwd && \
     autoreconf --install && \
-    mkdir build && cd build && \
+    mkdir build && \
+    mkdir build-postrable && \
+    cd build && \
     ../configure --enable-aac \
                  --enable-ofono \
                  --enable-debug \ 
@@ -56,9 +37,15 @@ RUN cd bluez-alsa && \
                  --enable-aac \
                  --enable-rfcomm \
                  --enable-hcitop \
-                 --disable-dependency-tracking && \
+                 --disable-dependency-tracking \
+                 --prefix=/home/bluez-alsa/build-portable && \
           \
           make && make install
+
+
+# copy
+# /usr/lib/x86_64-linux-gnu/alsa-lib
+
 
 
 
