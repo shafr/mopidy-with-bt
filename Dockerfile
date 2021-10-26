@@ -43,6 +43,12 @@ RUN cd bluez-alsa && \
           make && make install
 
 
+#  ----------- END blue-alsa build
+
+FROM ubuntu:20.04
+COPY --from=builder-bluealza '/usr/lib/x86_64-linux-gnu/alsa-lib' '/usr/lib/x86_64-linux-gnu/alsa-lib'
+COPY --from=builder-bluealza '/home/bluez-alsa/build-portable/' '/'
+
 # copy
 # /usr/lib/x86_64-linux-gnu/alsa-lib
 
