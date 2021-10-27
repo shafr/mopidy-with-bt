@@ -1,6 +1,7 @@
 FROM ubuntu:20.04 as builder-bluealza
 # Dev deps
-RUN apt-get -qq  update
+# RUN apt-get -qq  update
+RUN apt-get update
 RUN apt-get -qq -y install --no-install-recommends \ 
     git autoconf libtool gcc binutils pkg-config \
     automake make build-essential 
@@ -43,6 +44,9 @@ RUN cd bluez-alsa && \
 
 COPY bluealsa.conf /etc/dbus-1/system.d/bluealsa.conf          
 RUN apt-get -y install bluetooth
+RUN apt-get -y install mopidy mopidy-alsamixer mopidy-local mopidy-mpd
+
+# https://github.com/Arkq/bluez-alsa
 
 # docker run --privileged --net=host -v /run/dbus/system_bus_socket:/run/dbus/system_bus_socket -it
 
@@ -76,3 +80,8 @@ RUN apt-get -y install bluetooth
 # RUN apt-get update
 
 # RUN apt-get install -y bluez bluetooth 
+
+
+# Mopidy needs few things (that would be mounted with external volume):
+# mopidy config
+# local music
