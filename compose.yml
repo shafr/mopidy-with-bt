@@ -1,0 +1,20 @@
+version: '3'
+services:
+  bluetooth:
+    container_name: mopidy
+    image: saikek/mopidy-with-bt
+    volumes:
+      - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket
+      # MOPIDY 
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    environment:
+     - TZ=Europe/Prague
+    devices:
+     - /dev/ttyACM0:/dev/ttyACM0
+
+
+
+# Track name
+# Volume

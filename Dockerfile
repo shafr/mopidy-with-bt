@@ -39,26 +39,23 @@ RUN cd bluez-alsa && \
                  --enable-rfcomm \
                  --enable-hcitop \
                  && \
-          \
-          make && make install
+          ls
+RUN cd bluez-alsa/build && make && make install
 
-COPY bluealsa.conf /etc/dbus-1/system.d/bluealsa.conf          
+# COPY bluealsa.conf /etc/dbus-1/system.d/bluealsa.conf          
 RUN apt-get -y install bluetooth
-RUN apt-get -y install mopidy mopidy-alsamixer mopidy-local mopidy-mpd
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install mopidy mopidy-alsamixer mopidy-local mopidy-mpd
 
 # https://github.com/Arkq/bluez-alsa
 
-# docker run --privileged --net=host -v /run/dbus/system_bus_socket:/run/dbus/system_bus_socket -it
-
-# ./etc
-# ./etc/alsa
-# ./etc/alsa/conf.d
-# ./etc/alsa/conf.d/20-bluealsa.conf
-# ./bin
+# File that are changed by this build:
 # ./bin/bluealsa-aplay
 # ./bin/bluealsa
 # ./bin/bluealsa-rfcomm
 # ./bin/hcitop
+# ./etc/dbus-1/system.d/bluealsa.conf
+# ./etc/alsa/conf.d/20-bluealsa.conf
+
 
 
 #  ----------- END blue-alsa build
@@ -85,3 +82,23 @@ RUN apt-get -y install mopidy mopidy-alsamixer mopidy-local mopidy-mpd
 # Mopidy needs few things (that would be mounted with external volume):
 # mopidy config
 # local music
+
+RUN apt install strace -y
+RUN apt install mpc -y
+
+
+
+#------ MODPIRY STUFF HERE
+COPY mopidy /opt/mopidy
+RUN mopidy --config=/opt/mopidy/configs/mopidy.conf local scan
+
+
+COPY asound.conf /etc/asound.conf
+
+WORKDIR /opt
+COPY entrypoint.sh /opt/entrypoint.sh
+    
+CMD /bin/bash
+ENTRYPOINT /bin/bash
+
+
